@@ -1,0 +1,15 @@
+# Entorno virtual
+venv/
+
+# Archivos compilados de Python
+__pycache__/
+*.pyc
+
+# Base de datos local (se crea sola al ejecutar app.py)
+*.db
+instance/
+
+# Configuración del editor y del sistema
+.vscode/
+.DS_Store
+Thumbs.db
