@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block titulo %}Niveles | Cuadra{% endblock %}
+{% block contenido %}
+<h1 class="titulo-panel">Niveles</h1>
+<p class="subtitulo">Cada deporte tiene sus propios niveles. El orden (1 = el más bajo) es lo que usa el componente Nivel de la fórmula.</p>
+
+<div class="panel-card">
+    <div class="panel-cabecera">
+        <span class="texto-suave">{{ niveles|length }} niveles</span>
+        <a href="{{ url_for('niveles.crear') }}" class="btn-cuadra">+ Nuevo nivel</a>
+    </div>
+    <div class="tabla-contenedor">
+        <table class="tabla">
+            <thead><tr><th>Deporte</th><th>Orden</th><th>Nivel</th><th class="acciones">Acciones</th></tr></thead>
+            <tbody>
+                {% for n in niveles %}
+                <tr>
+                    <td>{{ n.deporte.nombre }}</td>
+                    <td><span class="badge-id">{{ n.orden }}</span></td>
+                    <td>{{ n.nombre }}</td>
+                    <td class="acciones">
+                        <a href="{{ url_for('niveles.editar', id=n.id) }}" class="btn-accion">Editar</a>
+                        <form method="POST" action="{{ url_for('niveles.eliminar', id=n.id) }}" class="form-en-linea"
+                              onsubmit="return confirm('¿Eliminar {{ n.nombre }}?');">
+                            <button type="submit" class="btn-accion borrar">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="4" class="vacio">No hay niveles</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

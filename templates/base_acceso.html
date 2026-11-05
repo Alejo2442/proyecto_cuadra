@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {% include "_cabecera.html" %}
+    <title>{% block titulo %}Cuadra{% endblock %}</title>
+</head>
+<body>
+    <div class="acceso">
+        <section class="curva_inicio">
+            <h1 class="titulo-cuadra">CUADRA</h1>
+            <p class="leyenda">Tú pones las ganas, nosotros cuadramos</p>
+        </section>
+
+        <section class="acceso-formulario">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Logo de Cuadra" width="180">
+            {% block contenido %}{% endblock %}
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/listas.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

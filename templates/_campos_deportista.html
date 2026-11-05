@@ -1,0 +1,35 @@
+<div class="campo">
+    <label for="usuario">Usuario</label>
+    <input type="text" id="usuario" name="usuario" value="{{ datos.usuario or '' }}">
+</div>
+<div class="campo">
+    <label for="contrasena">Contraseña</label>
+    <input type="password" id="contrasena" name="contrasena"
+           placeholder="{{ 'Déjala vacía para no cambiarla' if deportista else '' }}">
+</div>
+<div class="campo">
+    <label for="cedula">Cédula</label>
+    <input type="text" id="cedula" name="cedula" value="{{ datos.cedula or '' }}">
+</div>
+<div class="campo">
+    <label for="telefono">Teléfono (WhatsApp)</label>
+    <input type="text" id="telefono" name="telefono" value="{{ datos.telefono or '' }}" placeholder="09XXXXXXXX">
+</div>
+<div class="campo">
+    <label for="ciudad">Ciudad</label>
+    <select name="ciudad_id" id="ciudad">
+        <option value="">-- Selecciona una ciudad --</option>
+        {% for c in ciudades %}
+        <option value="{{ c.id }}" {{ 'selected' if c.id|string == datos.ciudad_id|string }}>{{ c.nombre }}</option>
+        {% endfor %}
+    </select>
+</div>
+<div class="campo">
+    <label for="zona">Zona</label>
+    <select name="zona_id" id="zona">
+        <option value="">-- Selecciona una zona --</option>
+        {% for z in zonas %}
+        <option value="{{ z.id }}" {{ 'selected' if z.id|string == datos.zona_id|string }}>{{ z.nombre }}</option>
+        {% endfor %}
+    </select>
+</div>

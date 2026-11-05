@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block titulo %}{{ 'Editar' if perfil else 'Nuevo' }} perfil | Cuadra{% endblock %}
+{% block contenido %}
+<div class="form-card">
+    <h2 class="titulo-login">{{ 'Editar perfil deportivo' if perfil else 'Nuevo perfil deportivo' }}</h2>
+    <form method="POST">
+        <div class="campo">
+            <label for="usuario_id">Deportista</label>
+            <select name="usuario_id" id="usuario_id">
+                <option value="">-- Selecciona un deportista --</option>
+                {% for u in deportistas %}
+                <option value="{{ u.id }}" {{ 'selected' if u.id|string == datos.usuario_id|string }}>{{ u.usuario }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="campo">
+            <label for="deporte">Deporte</label>
+            <select name="deporte_id" id="deporte">
+                <option value="">-- Selecciona un deporte --</option>
+                {% for d in deportes %}
+                <option value="{{ d.id }}" {{ 'selected' if d.id|string == datos.deporte_id|string }}>{{ d.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="campo">
+            <label for="nivel">Nivel</label>
+            <select name="nivel_id" id="nivel">
+                <option value="">-- Selecciona un nivel --</option>
+                {% for n in niveles %}
+                <option value="{{ n.id }}" {{ 'selected' if n.id|string == datos.nivel_id|string }}>{{ n.nombre }}</option>
+                {% endfor %}
+            </select>
+            <div class="ayuda">Se cargan solo los niveles del deporte elegido.</div>
+        </div>
+        <div class="campo">
+            <label for="posicion">Posición (opcional)</label>
+            <input type="text" id="posicion" name="posicion" value="{{ datos.posicion or '' }}">
+        </div>
+        <div class="campo">
+            <label for="peso">Peso en kg (opcional)</label>
+            <input type="text" id="peso" name="peso" value="{{ datos.peso or '' }}">
+        </div>
+        <div class="botones">
+            <button type="submit" class="btn-cuadra">Guardar</button>
+            <a href="{{ url_for('perfiles.listar') }}" class="btn-secundario">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>enlazarListas("deporte", "nivel", "{{ url_for('api.niveles_de_deporte', id=0) }}");</script>
+{% endblock %}

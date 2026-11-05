@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block titulo %}Perfiles deportivos | Cuadra{% endblock %}
+{% block contenido %}
+<h1 class="titulo-panel">Perfiles deportivos</h1>
+<p class="subtitulo">El deporte y el nivel de cada deportista: es lo que compara el motor de emparejamiento.</p>
+
+<div class="panel-card">
+    <div class="panel-cabecera">
+        <span class="texto-suave">{{ perfiles|length }} {{ 'perfil' if perfiles|length == 1 else 'perfiles' }}</span>
+        <a href="{{ url_for('perfiles.crear') }}" class="btn-cuadra">+ Nuevo perfil</a>
+    </div>
+    <div class="tabla-contenedor">
+        <table class="tabla">
+            <thead>
+                <tr><th>Deportista</th><th>Deporte</th><th>Nivel</th><th>Posición</th><th>Peso</th><th class="acciones">Acciones</th></tr>
+            </thead>
+            <tbody>
+                {% for p in perfiles %}
+                <tr>
+                    <td>
+                        <div class="con-avatar">
+                            <div class="avatar-mini">{{ p.usuario.usuario[0]|upper }}</div>
+                            <span>{{ p.usuario.usuario }}</span>
+                        </div>
+                    </td>
+                    <td>{{ p.deporte.nombre }}</td>
+                    <td><span class="etiqueta">{{ p.nivel.nombre }}</span></td>
+                    <td>{{ p.posicion or '—' }}</td>
+                    <td>{{ (p.peso ~ ' kg') if p.peso else '—' }}</td>
+                    <td class="acciones">
+                        <a href="{{ url_for('perfiles.editar', id=p.id) }}" class="btn-accion">Editar</a>
+                        <form method="POST" action="{{ url_for('perfiles.eliminar', id=p.id) }}" class="form-en-linea"
+                              onsubmit="return confirm('¿Eliminar este perfil?');">
+                            <button type="submit" class="btn-accion borrar">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="6" class="vacio">No hay perfiles deportivos</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

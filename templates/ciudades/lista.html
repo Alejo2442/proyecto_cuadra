@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block titulo %}Ciudades | Cuadra{% endblock %}
+{% block contenido %}
+<h1 class="titulo-panel">Ciudades</h1>
+<p class="subtitulo">Las ciudades donde funciona Cuadra. Cada una agrupa sus zonas.</p>
+
+<div class="panel-card">
+    <div class="panel-cabecera">
+        <span class="texto-suave">{{ ciudades|length }} registrados</span>
+        <a href="{{ url_for('ciudades.crear') }}" class="btn-cuadra">+ Nueva ciudad</a>
+    </div>
+    <div class="tabla-contenedor">
+        <table class="tabla">
+            <thead><tr><th>ID</th><th>Nombre</th><th class="acciones">Acciones</th></tr></thead>
+            <tbody>
+                {% for x in ciudades %}
+                <tr>
+                    <td><span class="badge-id">#{{ x.id }}</span></td>
+                    <td>{{ x.nombre }}</td>
+                    <td class="acciones">
+                        <a href="{{ url_for('ciudades.editar', id=x.id) }}" class="btn-accion">Editar</a>
+                        <form method="POST" action="{{ url_for('ciudades.eliminar', id=x.id) }}" class="form-en-linea"
+                              onsubmit="return confirm('¿Eliminar {{ x.nombre }}?');">
+                            <button type="submit" class="btn-accion borrar">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="3" class="vacio">No hay registros</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

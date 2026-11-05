@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block titulo %}Deportes | Cuadra{% endblock %}
+{% block contenido %}
+<h1 class="titulo-panel">Deportes</h1>
+<p class="subtitulo">Los deportes del core: fútbol y jiu-jitsu.</p>
+
+<div class="panel-card">
+    <div class="panel-cabecera">
+        <span class="texto-suave">{{ deportes|length }} registrados</span>
+        <a href="{{ url_for('deportes.crear') }}" class="btn-cuadra">+ Nuevo deporte</a>
+    </div>
+    <div class="tabla-contenedor">
+        <table class="tabla">
+            <thead><tr><th>ID</th><th>Nombre</th><th class="acciones">Acciones</th></tr></thead>
+            <tbody>
+                {% for x in deportes %}
+                <tr>
+                    <td><span class="badge-id">#{{ x.id }}</span></td>
+                    <td>{{ x.nombre }}</td>
+                    <td class="acciones">
+                        <a href="{{ url_for('deportes.editar', id=x.id) }}" class="btn-accion">Editar</a>
+                        <form method="POST" action="{{ url_for('deportes.eliminar', id=x.id) }}" class="form-en-linea"
+                              onsubmit="return confirm('¿Eliminar {{ x.nombre }}?');">
+                            <button type="submit" class="btn-accion borrar">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="3" class="vacio">No hay registros</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

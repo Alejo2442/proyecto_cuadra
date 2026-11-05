@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block titulo %}Zonas | Cuadra{% endblock %}
+{% block contenido %}
+<div class="form-card">
+    <h2 class="titulo-login">{{ 'Editar zona' if zona else 'Nueva zona' }}</h2>
+    <form method="POST">
+        <div class="campo">
+            <label for="ciudad_id">Ciudad</label>
+            <select name="ciudad_id" id="ciudad_id">
+                <option value="">-- Selecciona una ciudad --</option>
+                {% for c in ciudades %}
+                <option value="{{ c.id }}" {{ 'selected' if c.id|string == datos.ciudad_id|string }}>{{ c.nombre }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="campo">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" value="{{ datos.nombre or '' }}">
+        </div>
+        <div class="botones">
+            <button type="submit" class="btn-cuadra">Guardar</button>
+            <a href="{{ url_for('zonas.listar') }}" class="btn-secundario">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

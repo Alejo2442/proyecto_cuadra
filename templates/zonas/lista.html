@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block titulo %}Zonas | Cuadra{% endblock %}
+{% block contenido %}
+<h1 class="titulo-panel">Zonas</h1>
+<p class="subtitulo">Las zonas de cada ciudad. El componente Zona de la fórmula compara la zona del deportista con la de la publicación.</p>
+
+<div class="panel-card">
+    <div class="panel-cabecera">
+        <span class="texto-suave">{{ zonas|length }} zonas</span>
+        <a href="{{ url_for('zonas.crear') }}" class="btn-cuadra">+ Nueva zona</a>
+    </div>
+    <div class="tabla-contenedor">
+        <table class="tabla">
+            <thead><tr><th>Ciudad</th><th>Zona</th><th class="acciones">Acciones</th></tr></thead>
+            <tbody>
+                {% for z in zonas %}
+                <tr>
+                    <td>{{ z.ciudad.nombre }}</td>
+                    <td>{{ z.nombre }}</td>
+                    <td class="acciones">
+                        <a href="{{ url_for('zonas.editar', id=z.id) }}" class="btn-accion">Editar</a>
+                        <form method="POST" action="{{ url_for('zonas.eliminar', id=z.id) }}" class="form-en-linea"
+                              onsubmit="return confirm('¿Eliminar {{ z.nombre }}?');">
+                            <button type="submit" class="btn-accion borrar">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% else %}
+                <tr><td colspan="3" class="vacio">No hay zonas</td></tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

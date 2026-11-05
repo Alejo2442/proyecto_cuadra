@@ -1,58 +1,41 @@
 {% extends "base.html" %}
-{% block titulo %}Gestión de Usuarios | Cuadra{% endblock %}
-
+{% block titulo %}Deportistas | Cuadra{% endblock %}
 {% block contenido %}
-<h1 class="titulo-panel mb-1">Gestión de Usuarios</h1>
-<p class="text-muted mb-4">Agrega nuevos usuarios, edita sus datos o elimínalos del sistema.</p>
+<h1 class="titulo-panel">Gestión de Deportistas</h1>
+<p class="subtitulo">Registra a los deportistas con su cédula, su WhatsApp y la zona donde juegan.</p>
 
-<div class="card panel-card">
-    <div class="d-flex justify-content-between align-items-center p-4 flex-wrap gap-3">
-        <span class="text-muted">
-            {{ usuarios|length }} {{ 'usuario registrado' if usuarios|length == 1 else 'usuarios registrados' }}
-        </span>
-        <a href="{{ url_for('usuarios.crear') }}" class="btn btn-cuadra">
-            <i class="bi bi-plus-lg"></i> Nuevo usuario
-        </a>
+<div class="panel-card">
+    <div class="panel-cabecera">
+        <span class="texto-suave">{{ deportistas|length }} {{ 'deportista registrado' if deportistas|length == 1 else 'deportistas registrados' }}</span>
+        <a href="{{ url_for('usuarios.crear') }}" class="btn-cuadra">+ Nuevo deportista</a>
     </div>
-
-    <div class="table-responsive">
-        <table class="table tabla-usuarios align-middle mb-0">
+    <div class="tabla-contenedor">
+        <table class="tabla">
             <thead>
-                <tr>
-                    <th class="ps-4">Nombre</th>
-                    <th>ID</th>
-                    <th class="text-end pe-4">Acciones</th>
-                </tr>
+                <tr><th>Deportista</th><th>Cédula</th><th>Teléfono</th><th>Ciudad / Zona</th><th class="acciones">Acciones</th></tr>
             </thead>
             <tbody>
-                {% for u in usuarios %}
+                {% for d in deportistas %}
                 <tr>
-                    <td class="ps-4">
-                        <div class="d-flex align-items-center gap-3">
-                            <div class="avatar-mini">{{ u.usuario[0]|upper }}</div>
-                            <span>
-                                {{ u.usuario }}
-                                {% if u.id == current_user.id %}<span class="text-muted">(yo)</span>{% endif %}
-                            </span>
+                    <td>
+                        <div class="con-avatar">
+                            <div class="avatar-mini">{{ d.usuario[0]|upper }}</div>
+                            <span>{{ d.usuario }} <span class="badge-id">#{{ d.id }}</span></span>
                         </div>
                     </td>
-                    <td><span class="badge-id">#{{ u.id }}</span></td>
-                    <td class="text-end pe-4">
-                        <a href="{{ url_for('usuarios.editar', id=u.id) }}" class="btn-icono" title="Editar">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        {% if u.id != current_user.id %}
-                        <form method="POST" action="{{ url_for('usuarios.eliminar', id=u.id) }}" class="d-inline"
-                              onsubmit="return confirm('¿Eliminar a {{ u.usuario }}?');">
-                            <button type="submit" class="btn-icono btn-icono-borrar" title="Eliminar">
-                                <i class="bi bi-trash"></i>
-                            </button>
+                    <td>{{ d.cedula }}</td>
+                    <td>{{ d.telefono }}</td>
+                    <td>{{ d.zona.ciudad.nombre ~ ' · ' ~ d.zona.nombre if d.zona }}</td>
+                    <td class="acciones">
+                        <a href="{{ url_for('usuarios.editar', id=d.id) }}" class="btn-accion">Editar</a>
+                        <form method="POST" action="{{ url_for('usuarios.eliminar', id=d.id) }}" class="form-en-linea"
+                              onsubmit="return confirm('¿Eliminar a {{ d.usuario }}?');">
+                            <button type="submit" class="btn-accion borrar">Eliminar</button>
                         </form>
-                        {% endif %}
                     </td>
                 </tr>
                 {% else %}
-                <tr><td colspan="3" class="text-center text-muted py-4">No hay usuarios registrados</td></tr>
+                <tr><td colspan="5" class="vacio">No hay deportistas registrados</td></tr>
                 {% endfor %}
             </tbody>
         </table>

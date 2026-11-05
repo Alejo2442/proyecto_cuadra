@@ -5,7 +5,10 @@ venv/
 __pycache__/
 *.pyc
 
-# Base de datos local (se crea sola al ejecutar app.py)
+# Variables privadas (dirección y clave de la base de datos)
+.env
+
+# Base de datos antigua de SQLite
 *.db
 instance/
 
@@ -13,3 +16,4 @@ instance/
 .vscode/
 .DS_Store
 Thumbs.db
+*.lnk
