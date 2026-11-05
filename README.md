@@ -80,7 +80,7 @@ Próximas mejoras planeadas: publicaciones de "busco compañero", postulaciones,
 
 ### 🌐 Aplicación publicada
 
-[Abrir la aplicación]()
+https://cuadra-85xn.onrender.com
 
 ### 🎥 Video de demostración
 
