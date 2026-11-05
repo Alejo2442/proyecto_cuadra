@@ -155,7 +155,7 @@ Ninguna clave foránea se escribe a mano. Las relaciones se eligen con listas de
 ## 🧱 Arquitectura MVC
 
 ```
-proyecto-mvc-crud-login/
+proyecto_cuadra/
 ├── app.py                         # Punto de entrada: crea la app, registra los controladores y carga los datos iniciales
 ├── config.py                      # Configuración: lee la base de datos y la clave secreta del archivo .env
 ├── extensions.py                  # Instancias de SQLAlchemy y Flask-Login
@@ -271,8 +271,8 @@ La dirección de la base de datos y la clave secreta se leen del archivo `.env`,
 Clona el repositorio:
 
 ```bash
-git clone https://github.com/Alejo2442/proyecto-mvc-crud-login.git
-cd proyecto-mvc-crud-login
+git clone https://github.com/Alejo2442/proyecto_cuadra.git
+cd proyecto_cuadra
 ```
 
 O descárgalo como ZIP desde el botón **Code → Download ZIP** de esta página.
