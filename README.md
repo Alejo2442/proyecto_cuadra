@@ -81,6 +81,7 @@ Próximas mejoras planeadas: publicaciones de "busco compañero", postulaciones,
 ### 🌐 Aplicación publicada
 
 https://cuadra-85xn.onrender.com
+
 Usuario de prueba: `admin` · Contraseña: `admin123`
 
 ### 🎥 Video de demostración
